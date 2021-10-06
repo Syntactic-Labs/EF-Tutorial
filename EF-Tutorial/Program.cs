@@ -1,4 +1,5 @@
 ﻿using EF_Tutorial.Controlers;
+using EF_Tutorial.Controllers;
 using EF_Tutorial.Models;
 using System;
 using System.Linq;
@@ -8,7 +9,23 @@ namespace EF_Tutorial
     class Program
     {
         static void Main(string[] args)
-        {
+        {   //homework will be to write out my program to munipulate the students table
+            Student student = null;
+            var studentCtrl = new StudentsController();
+            var NewStudent = new Student()
+            {
+                Id = 0, Firstname = "Todd", Lastname = "Goblin", StateCode = "KY", Sat = 
+            };
+        }
+        
+
+
+
+
+
+
+
+        static void mctl() { 
             Major major = null;
             var majorsCtrl = new MajorsController();
 
@@ -18,8 +35,8 @@ namespace EF_Tutorial
             };
             try
             {
-                var rc = majorsCtrl.Create(NewMajor);
-                if (!rc)
+                var rcl = majorsCtrl.Create(NewMajor);
+                if (!rcl)
                 {
                     Console.WriteLine("Creation Failed");
                 }
@@ -29,6 +46,12 @@ namespace EF_Tutorial
             }
             NewMajor.Description = "Classical Music";
             majorsCtrl.Change(NewMajor.Id, NewMajor);
+
+            var rc = majorsCtrl.Remove(NewMajor.Id);
+            if (!rc)
+            {
+                Console.WriteLine("Remove Failed");
+            }
 
             major = majorsCtrl.GetByPk(2);
             Console.WriteLine(major);

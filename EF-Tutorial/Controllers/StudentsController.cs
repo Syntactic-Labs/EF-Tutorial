@@ -5,32 +5,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EF_Tutorial.Controlers
+namespace EF_Tutorial.Controllers
 {
-    public class MajorsController
+    public class StudentsController
     {
-        private readonly EdDbContext _context;     //get set are not nessicary
+        private readonly EdDbContext _context;
 
-        public MajorsController()
+        public StudentsController()
         {
             _context = new EdDbContext();
         }
-        public List<Major> GetAll()
+        //gets it all
+        public List<Student> GetAll()
         {
-            return _context.Majors.ToList();
+            return _context.Students.ToList();
         }
-        public Major GetByPk(int Id)
+        //Gets only 1
+        public Student GetByPk(int Id)
         {
-            return _context.Majors.Find(Id);
+            return _context.Students.Find(Id);
         }
-        public Major GetByCode(string Code)
+        public bool Create(Student student)
         {
-            return _context.Majors.SingleOrDefault(m => m.Code == Code);
-        }
-        public bool Create(Major major)
-        {
-            major.Id = 0;
-            _context.Majors.Add(major);
+            student.Id = 0;
+            _context.Students.Add(student);
             var rowsAffected = _context.SaveChanges();
             if (rowsAffected != 1)
             {
@@ -38,31 +36,32 @@ namespace EF_Tutorial.Controlers
             }
             return true;
         }
-        public bool Change(int Id, Major major)
+        public bool Change(int Id, Student student)
         {
-            if (Id != major.Id)
+            if (Id != student.Id)
             {
                 throw new Exception("Ids don't match!");
             }
             //major.Upated = DateTime.Now;       logs the time and date of changes or actions
-            _context.Entry(major).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(student).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             var rowsAffected = _context.SaveChanges();
             if (rowsAffected != 1)
             {
                 throw new Exception("Create failed");
             }
-            return true;  
+            return true;
         }
         public bool Remove(int Id)
         {
-            var major = _context.Majors.Find(Id);
-            if (major == null)
+            var student = _context.Students.Find(Id);
+            if (student == null)
             {
                 return false;
             }
-            _context.Majors.Remove(major);
+            _context.Students.Remove(student);
             _context.SaveChanges();
             return true;
         }
+
     }
 }

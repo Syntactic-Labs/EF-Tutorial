@@ -7,6 +7,10 @@ namespace EF_Tutorial.Models
 {
     public partial class Major
     {
+        public override string ToString()
+        {
+            return $"{Id} | {Code} | {Description} | {MinSat}";
+        }
         public Major()
         {
             MajorClasses = new HashSet<MajorClass>();

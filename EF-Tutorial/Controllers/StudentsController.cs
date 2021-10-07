@@ -1,4 +1,5 @@
 ﻿using EF_Tutorial.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +19,12 @@ namespace EF_Tutorial.Controllers
         //gets it all
         public List<Student> GetAll()
         {
-            return _context.Students.ToList();
+            return _context.Students.Include(x => x.Major).ToList();
         }
         //Gets only 1
         public Student GetByPk(int Id)
         {
-            return _context.Students.Find(Id);
+            return _context.Students.Include(x => x.Major).SingleOrDefault(s => s.Id == Id);
         }
         public bool Create(Student student)
         {

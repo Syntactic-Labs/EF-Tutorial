@@ -1,4 +1,5 @@
 ﻿using EF_Tutorial.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +16,14 @@ namespace EF_Tutorial.Controlers
         {
             _context = new EdDbContext();
         }
-        public List<Major> GetAll()
-        {
-            return _context.Majors.ToList();
+        //task is * ret*urn list of major async... async makes it async
+        public async Task<List<Major>> GetAll()
+        {   //       *
+            return await _context.Majors.ToListAsync();
         }
-        public Major GetByPk(int Id)
+        public async Task<Major> GetByPk(int Id)
         {
-            return _context.Majors.Find(Id);
+            return await _context.Majors.FindAsync(Id);
         }
         public Major GetByCode(string Code)
         {

@@ -22,5 +22,10 @@ namespace EF_Tutorial.Models
 
         public virtual Major Major { get; set; }
         public virtual ICollection<StudentClass> StudentClasses { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} | {Firstname} | {Lastname} | {StateCode} | {Sat} | {Gpa} | {(MajorId == null ? "undecided" : Major.Description)}";
+        }
     }
 }
